@@ -7,7 +7,26 @@ def readFile(file, formulas):
             exp = exp.replace(" ", "")
             formulas.append(exp)
 
+def formulaStringToList(formulaString):
 
+    formulaString = formulaString[1 : -1]
+    lastChar = ""
+    formulaList = []
+
+    for char in formulaString:
+
+        if char == "{":
+            formulaList.append([])
+
+        elif lastChar == "¬":
+            formulaList[-1].append(f"¬{char}")
+
+        elif char != "}" and char != "," and char != "¬":
+            formulaList[-1].append(char)
+
+        lastChar = char
+
+    return formulaList
 
 # Inicio del programa
 
@@ -28,6 +47,11 @@ while option != cantFormulas:
         print(f"{idx + 1}. {form}")
 
     option = int(input())
+
+    if option < cantFormulas:
+        list = formulaStringToList(formulas[option - 1])
+
+        print(list)
 
 print(formulas)
 
