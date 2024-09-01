@@ -1,4 +1,4 @@
-
+import itertools
 
 def readFile(file, formulas):
     with open(file, "r", encoding="utf-8") as f:
@@ -28,6 +28,19 @@ def formulaStringToList(formulaString):
 
     return formulaList
 
+def get_variables(formula_list):
+    variables = set()
+    for clause in formula_list:
+        for literal in clause:
+            variable = literal.replace('¬', '')  # Quita la negación para obtener la variable
+            variables.add(variable)
+    return list(variables)
+
+import itertools
+
+def generate_assignments(variables):
+    return list(itertools.product([False, True], repeat=len(variables)))
+
 # Inicio del programa
 
 formulas = []
@@ -49,9 +62,23 @@ while option != cantFormulas:
     option = int(input())
 
     if option < cantFormulas:
-        list = formulaStringToList(formulas[option - 1])
 
-        print(list)
+        formula_list = formulaStringToList(formulas[option - 1])
+        print(formula_list)
+        
+        variables = get_variables(formula_list)
+
+        print(f"Variables identificadas en la expresion: {variables}")
+
+        assignments = generate_assignments(variables)
+        print(f"Total de combinaciones posibles: {len(assignments)}")
+
+        for assignment in assignments:  # Mostrar solo las primeras 5 combinaciones
+            print(dict(zip(variables, assignment)))
+        
+        print()
+        
+        
 
 print(formulas)
 
