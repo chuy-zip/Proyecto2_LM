@@ -67,10 +67,6 @@ def update_formula(formula, literal):
                 new_formula.add_clause(clause)
     return new_formula
 
-formulas = parse_file("input.txt")
-value, assignment = dpll(formulas[5], {})
-print(f'Satisfacible: {value}, Asignaciones: {assignment}')
-
 # Actualiza una formula con la asignacion de valor a una variable
 def update_formula(formula, literal):
     # Crea un literal con la negacion de la asignacion
