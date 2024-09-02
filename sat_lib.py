@@ -3,6 +3,9 @@ class Literal:
     def __init__(self, symbol, is_positive=True):
         self.symbol = symbol
         self.is_positive = is_positive
+
+    def negate(self):
+        return Literal(self.symbol, not self.is_positive)
     
     def __eq__(self, other):
         return self.symbol == other.symbol and self.is_positive == other.is_positive
